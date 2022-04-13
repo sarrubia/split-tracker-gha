@@ -1,0 +1,35 @@
+name: 'Split Tracker'
+author: 'Sebastian Arrubia (sarrubia)'
+description: 'Tracks Split events into your Github Actions'
+inputs:
+  api-key:  # Split api key
+    description: 'Split API key'
+    required: true
+    default: ''
+  key:  # user/evaluation key
+    description: 'Evaluation key'
+    required: true
+    default: ''
+  traffic-type:  # usually user or account
+    description: 'Traffic type'
+    required: true
+    default: ''
+  event-type:  # custom event type
+    description: 'Event type'
+    required: true
+    default: ''
+  value:  # usually user or account
+    description: 'Event value, float number'
+    required: false
+    default: ''
+  properties:  # usually user or account
+    description: 'Properties must be a key-value object JSON representation. Ex: {"package":"premium", "admin":true}'
+    required: false
+    default: ''
+
+runs:
+  using: 'node12'
+  main: 'index.js'
+branding:
+  icon: 'git-merge'  
+  color: 'blue'
