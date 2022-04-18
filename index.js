@@ -21,19 +21,8 @@ try {
   checkInputParam(key, 'traffic-type is required');
   core.debug('traffic-type: ' + key);
 
-  const eventType = core.getInput('event-type');
-  checkInputParam(eventType, 'event-type is required');
-  core.debug('key: ' + eventType);
-
-  const value = core.getInput('value');
-  //checkInputParam(key, 'value is required');
-  core.debug('value: ' + value);
-
-  const properties = core.getInput('properties');
-  //checkInputParam(key, 'properties is required');
-  core.debug('properties: ' + properties);
-
   const events = core.getMultilineInput('events');
+  core.debug('Events: ' + events);
 
   var factory = SplitFactory({
     core: {
@@ -44,13 +33,18 @@ try {
 
   const track = async function () {
     events.forEach((element) => {
-      core.debug('Events: ' + element);
+      core.debug('Event: ' + element);
+
       const parsed = JSON.parse(element);
       const k = parsed.key || key;
       const tt = parsed.trafficType || trafficType;
-      const ev = parsed.eventType || eventType;
+      const ev = parsed.eventType || null;
       const val = parsed.value || null;
       const prop = parsed.properties || null;
+
+      if (!ev) {
+        throw 'the event type is required';
+      }
 
       core.debug('[' + k + ':' + tt + ':' + ev + ':' + val + ':' + prop + ']');
       client.track(k, tt, ev, val, prop);
