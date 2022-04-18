@@ -46,11 +46,11 @@ try {
     events.forEach((element) => {
       core.debug('Events: ' + element);
       const parsed = JSON.parse(element);
-      const k = parsed.key | key;
-      const tt = parsed.trafficType | trafficType;
-      const ev = parsed.eventType | eventType;
-      const val = parsed.value | null;
-      const prop = parsed.properties | null;
+      const k = parsed.key || key;
+      const tt = parsed.trafficType || trafficType;
+      const ev = parsed.eventType || eventType;
+      const val = parsed.value || null;
+      const prop = parsed.properties || null;
 
       core.debug('[' + k + ':' + tt + ':' + ev + ':' + val + ':' + prop + ']');
       client.track(k, tt, ev, val, prop);
