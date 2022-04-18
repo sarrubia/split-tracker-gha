@@ -43,7 +43,8 @@ try {
       const prop = parsed.properties || null;
 
       if (!ev) {
-        throw 'the event type is required';
+        core.setFailed('the event type is required');
+        return;
       }
 
       core.debug('[' + k + ':' + tt + ':' + ev + ':' + val + ':' + prop + ']');
