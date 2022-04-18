@@ -34,16 +34,6 @@ try {
   core.debug('properties: ' + properties);
 
   const events = core.getMultilineInput('events');
-  events.forEach((element) => {
-    core.debug('Events: ' + element);
-    const parsed = JSON.parse(element);
-    core.debug(parsed.key);
-    core.debug(parsed.trafficType);
-    core.debug(parsed.value);
-    if (parsed.properties) {
-      core.debug(parsed.properties.package);
-    }
-  });
 
   var factory = SplitFactory({
     core: {
@@ -51,9 +41,26 @@ try {
     },
   });
   var client = factory.client();
-  client.track(key, trafficType, eventType, value, properties);
-  client.destroy(); // flush impressions
-  client = null;
+
+  const track = async function () {
+    events.forEach((element) => {
+      core.debug('Events: ' + element);
+      const parsed = JSON.parse(element);
+      const k = parsed.key | key;
+      const tt = parsed.trafficType | trafficType;
+      const ev = parsed.eventType | eventType;
+      const val = parsed.value | null;
+      const prop = parsed.properties | null;
+
+      core.debug(k + tt + ev + val + prop);
+      client.track(k, tt, ev, val, prop);
+    });
+
+    await client.destroy(); // flush impressions
+    client = null;
+  };
+
+  track();
 } catch (error) {
   core.setFailed(error.message);
 }
