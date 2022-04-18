@@ -36,7 +36,11 @@ try {
   const events = core.getMultilineInput('events');
   events.forEach((element) => {
     core.debug('Events: ' + element);
-    core.debug(JSON.parse(element));
+    const parsed = JSON.parse(element);
+    core.debug(parsed.key);
+    core.debug(parsed.trafficType);
+    core.debug(parsed.value);
+    core.debug(parsed.properties);
   });
 
   var factory = SplitFactory({
