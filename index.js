@@ -40,7 +40,9 @@ try {
     core.debug(parsed.key);
     core.debug(parsed.trafficType);
     core.debug(parsed.value);
-    core.debug(parsed.properties.package);
+    if (parsed.properties) {
+      core.debug(parsed.properties.package);
+    }
   });
 
   var factory = SplitFactory({
