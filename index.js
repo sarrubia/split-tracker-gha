@@ -31,7 +31,10 @@ try {
 
   const properties = core.getInput('properties');
   //checkInputParam(key, 'properties is required');
-  core.debug('properties: ' + key);
+  core.debug('properties: ' + properties);
+
+  const events = core.getMultilineInput('events');
+  core.debug('Events: ' + events);
 
   var factory = SplitFactory({
     core: {
