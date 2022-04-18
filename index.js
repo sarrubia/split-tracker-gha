@@ -52,7 +52,7 @@ try {
       const val = parsed.value | null;
       const prop = parsed.properties | null;
 
-      core.debug(k + tt + ev + val + prop);
+      core.debug('[' + k + ':' + tt + ':' + ev + ':' + val + ':' + prop + ']');
       client.track(k, tt, ev, val, prop);
     });
 
